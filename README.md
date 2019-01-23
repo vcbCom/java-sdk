@@ -15,7 +15,7 @@ https://github.com/vcbCom/vcbApi/wiki
 ```
    <dependency>
       <groupId>com.vcb</groupId>
-      <artifactId>otc-java-sdk</artifactId>
+      <artifactId>vcb-java-sdk</artifactId>
       <version>1.0</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/libs/vcb-java-sdk-1.0.jar</systemPath>
