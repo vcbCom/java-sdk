@@ -1,9 +1,6 @@
 package com.vcb.domain.response;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
