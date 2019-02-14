@@ -12,8 +12,8 @@ import lombok.ToString;
 @ToString
 public class BaseRequest {
     /**
-     * 用户手机
+     * openid
      */
-    @NotNull(payload = VcbPayload.MissingParameter.class, message = "mobile")
-    private String mobile;
+    @NotNull(payload = VcbPayload.MissingParameter.class, message = "openid")
+    private String openid;
 }

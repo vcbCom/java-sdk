@@ -11,7 +11,7 @@ class ApiVcbServiceTest extends Specification {
     private static String mobile = "17316227689"
 
     void setup() {
-        apiVcbService = new ApiVcbService("ivpdru4c-qpdqswld-yx9atr8t-t7763","89j2t90o-76fhxpc2-3vz0fh18-j2471","http://vcb.tzld.com")
+        apiVcbService = new ApiVcbService("ivpdru4c-qpdqswld-yx9atr8t-t7763","89j2t90o-76fhxpc2-3vz0fh18-j2471","http://te.vcb.com")
     }
 
     /**
@@ -67,7 +67,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "loanInit"() {
         def request = new SymbolRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.symbol = "btcusdt"
         request.exchangeCode = "huobi"
         def response = apiVcbService.loanInit(request)
@@ -227,4 +227,8 @@ class ApiVcbServiceTest extends Specification {
         expect: true
     }
 
+    public static void main(String[] args) {
+        String s = "[{\"type\":4,\"number\":\"291117124@qq.com\",\"name\":\"孟晗\",\"url\":\"http://vcb.oss-cn-hongkong.aliyuncs.com/pay/230f5b22699d6cedbcff3d5b2ed92895%21small?OSSAccessKeyId=LTAIMoSidU9xd2Nv&Signature=OHa2idYC1VcZ7zQg8fMOzIcdR84%3D&Expires=1545995402\",\"bank\":null,\"bankName\":null},{\"type\":2,\"number\":\"hb965420mh\",\"name\":\"孟晗\",\"url\":\"http://vcb.oss-cn-hongkong.aliyuncs.com/pay/87a5219c85167c3396f1cde13b7db198%21small?OSSAccessKeyId=LTAIMoSidU9xd2Nv&Signature=W5Rl8sxJYvM%2BuK3ePhvCbOW7N%2B8%3D&Expires=1545995402\",\"bank\":null,\"bankName\":null},{\"type\":3,\"number\":\"2525225252\",\"name\":\"孟晗\",\"url\":null,\"bank\":\"招商银行\",\"bankName\":\"北京大屯路招商银行\"}]"
+        println s.length()
+    }
 }
