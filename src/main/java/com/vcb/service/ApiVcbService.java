@@ -36,7 +36,6 @@ import com.vcb.domain.response.TradeEntrustInitResponse;
 import com.vcb.domain.response.TradeEntrustInitResponse.EntrustInfo;
 import com.vcb.domain.response.TradeLoanInfo;
 import com.vcb.domain.response.TradeLoanInitResponse;
-import com.vcb.domain.response.TradeLoanResponse;
 import com.vcb.domain.response.TradeLoanReturnInfo;
 import com.vcb.domain.response.TradeLoanReturnInitResponse;
 import com.vcb.exception.ApiVcbException;
@@ -180,12 +179,12 @@ public class ApiVcbService {
      * 借贷申请
      * @return 借贷订单流水号
      */
-    public TradeLoanResponse loan(TradeLoanRequest request) {
+    public JsonResult loan(TradeLoanRequest request) {
         ValidatorHelper.validator(request);
         Map<String, String> params =ApiIdentityUtil.toMap(request);
         String uri = "/v1/api/kushen/trade/loan";
         log.info("loan,request={}",request);
-        return call(uri, params, TradeLoanResponse.class);
+        return baseCall(uri, params);
     }
 
     /**

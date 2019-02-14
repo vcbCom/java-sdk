@@ -80,6 +80,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "loan"() {
         def request = new TradeLoanRequest()
+        request.openid = mobile
         request.mobile = mobile
         request.symbol = "btcusdt"
         request.exchangeCode = "huobi"
@@ -95,7 +96,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "loanList"() {
         def request = new TradeLoanListRequest()
-        request.mobile = mobile
+        request.openid = mobile
         def response = apiVcbService.loanList(request)
         println JSON.toJSONString(response)
         expect: true
@@ -107,7 +108,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "returnInit"() {
         def request = new TradeLoanReturnInfoRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.tradeLoanSn = "JD00000174"
         def response = apiVcbService.returnInit(request)
         println JSON.toJSONString(response)
@@ -119,7 +120,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "loanReturn"() {
         def request = new TradeLoanReturnRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.amount = 1
         request.tradeLoanSn = "JD00000174"
         def response = apiVcbService.loanReturn(request)
@@ -132,7 +133,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "returnInfo"() {
         def request = new TradeLoanReturnInfoRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.tradeLoanSn = "JD00000174"
         def response = apiVcbService.returnInfo(request)
         println JSON.toJSONString(response)
@@ -144,7 +145,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "entrustInit"() {
         def request = new SymbolRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.exchangeCode = "huobi"
         request.symbol = "btcusdt"
         def response = apiVcbService.entrustInit(request)
@@ -157,7 +158,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "entrust"() {
         def request = new EntrustRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.exchangeCode = "huobi"
         request.symbol = "btcusdt"
         request.amount = 1
@@ -173,7 +174,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "entrustCancel"() {
         def request = new EntrustInfoRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.entrustSn = "WT00002158"
         def response = apiVcbService.entrustCancel(request)
         println JSON.toJSONString(response)
@@ -185,7 +186,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "entrustList"() {
         def request = new EntrustListRequest()
-        request.mobile = mobile
+        request.openid = mobile
         def response = apiVcbService.entrustList(request)
         println JSON.toJSONString(response)
         expect: true
@@ -196,7 +197,7 @@ class ApiVcbServiceTest extends Specification {
      */
     def "entrustInfo"() {
         def request = new EntrustInfoRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.entrustSn = "WT00002158"
         def response = apiVcbService.entrustInfo(request)
         println JSON.toJSONString(response)

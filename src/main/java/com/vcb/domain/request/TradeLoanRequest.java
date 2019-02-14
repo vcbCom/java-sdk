@@ -2,6 +2,7 @@ package com.vcb.domain.request;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 import com.vcb.domain.VcbPayload;
 import lombok.Getter;
@@ -21,6 +22,9 @@ public class TradeLoanRequest extends BaseRequest{
     @NotNull(payload = VcbPayload.MissingParameter.class, message = "symbol")
     private String symbol;
 
+    @NotNull(payload = VcbPayload.MissingParameter.class, message = "mobile")
+    @Pattern(regexp= "^[1][3-57-9][0-9]{9}$",payload = VcbPayload.InvalidParameter.class,message="format error")
+    private String mobile;
     /**
      * 交易所
      */
