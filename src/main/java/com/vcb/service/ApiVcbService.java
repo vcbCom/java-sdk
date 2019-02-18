@@ -148,7 +148,7 @@ public class ApiVcbService {
      */
     public List<ExchangeSymbol> symbolList() {
         Map<String, String> params = new HashMap<>(5);
-        String uri = "/v1/api/kushen/trade/symbol/list";
+        String uri = "/v1/api0/kushen/trade/symbol/list";
         log.info("symbolList,request={}");
         return callForList(uri, params, ExchangeSymbol.class);
     }
