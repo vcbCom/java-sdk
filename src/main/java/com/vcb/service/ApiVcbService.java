@@ -22,6 +22,7 @@ import com.vcb.domain.request.AssetDetailRequest;
 import com.vcb.domain.request.EntrustInfoRequest;
 import com.vcb.domain.request.EntrustListRequest;
 import com.vcb.domain.request.EntrustRequest;
+import com.vcb.domain.request.LoanApplyInitRequest;
 import com.vcb.domain.request.RealtimeJsonRequest;
 import com.vcb.domain.request.SymbolRequest;
 import com.vcb.domain.request.TradeLoanListRequest;
@@ -31,12 +32,13 @@ import com.vcb.domain.request.TradeLoanReturnRequest;
 import com.vcb.domain.response.EntrustInfoResponse;
 import com.vcb.domain.response.EntrustResponse;
 import com.vcb.domain.response.ExchangeSymbol;
+import com.vcb.domain.response.LoanInterestResponse;
 import com.vcb.domain.response.SymbolInfoResponse;
 import com.vcb.domain.response.TradeEntrustInitResponse;
 import com.vcb.domain.response.TradeEntrustInitResponse.EntrustInfo;
 import com.vcb.domain.response.TradeLoanInfo;
 import com.vcb.domain.response.TradeLoanInitResponse;
-import com.vcb.domain.response.TradeLoanReturnInfo;
+import com.vcb.domain.response.TradeLoanInterestResponse;
 import com.vcb.domain.response.TradeLoanReturnInitResponse;
 import com.vcb.exception.ApiVcbException;
 import com.vcb.exception.InvalidParameterException;
@@ -176,6 +178,28 @@ public class ApiVcbService {
     }
 
     /**
+     * 借贷利率
+     */
+    public TradeLoanInterestResponse tradeInterest(SymbolRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params =ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/trade/loan/interest";
+        log.info("tradeInterest,request={}",request);
+        return call(uri, params, TradeLoanInterestResponse.class);
+    }
+
+    /**
+     * 质押借贷利率
+     */
+    public LoanInterestResponse loanInterest(LoanApplyInitRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params =ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/loan/interest";
+        log.info("tradeInterest,request={}",request);
+        return call(uri, params, LoanInterestResponse.class);
+    }
+
+    /**
      * 借贷申请
      * @return 借贷订单流水号
      */
@@ -198,16 +222,6 @@ public class ApiVcbService {
         return call(uri, params, new TypeReference<QueryResponse<TradeLoanInfo>>(){});
     }
 
-    /**
-     * 借贷归还明细
-     */
-    public List<TradeLoanReturnInfo> returnInfo(TradeLoanReturnInfoRequest request) {
-        ValidatorHelper.validator(request);
-        Map<String, String> params =ApiIdentityUtil.toMap(request);
-        String uri = "/v1/api/kushen/trade/loan/return/info";
-        log.info("returnInfo,request={}",request);
-        return callForList(uri, params, TradeLoanReturnInfo.class);
-    }
 
     /**
      * 借币归还初始化

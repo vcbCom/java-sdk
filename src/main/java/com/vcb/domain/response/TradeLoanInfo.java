@@ -1,6 +1,8 @@
 package com.vcb.domain.response;
 
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -87,5 +89,25 @@ public class TradeLoanInfo {
      *订单完成日期
      */
     private Date finishDate;
+
+    /**
+     * 借币归还记录
+     */
+    private List<TradeLoanReturnInfo> returnInfoList;
+
+    @Getter
+    @Setter
+    public static class TradeLoanReturnInfo {
+
+        /**
+         * 归还日期
+         */
+        private Date createTime;
+
+        /**
+         * 归还数量
+         */
+        private BigDecimal amount;
+    }
 }
 

@@ -76,6 +76,31 @@ class ApiVcbServiceTest extends Specification {
     }
 
     /**
+     * 借贷利率
+     */
+    def "tradeInterest"() {
+        def request = new SymbolRequest()
+        request.openid = mobile
+        request.symbol = "btcusdt"
+        request.exchangeCode = "huobi"
+        def response = apiVcbService.tradeInterest(request)
+        println JSON.toJSONString(response)
+        expect: true
+    }
+
+    /**
+     * 质押借贷利率
+     */
+    def "loanInterest"() {
+        def request = new LoanApplyInitRequest()
+        request.openid = mobile
+        request.varietyCode = "btc"
+        def response = apiVcbService.loanInterest(request)
+        println JSON.toJSONString(response)
+        expect: true
+    }
+
+    /**
      * 借贷申请
      */
     def "loan"() {
@@ -124,18 +149,6 @@ class ApiVcbServiceTest extends Specification {
         request.amount = 1
         request.tradeLoanSn = "JD00000174"
         def response = apiVcbService.loanReturn(request)
-        println JSON.toJSONString(response)
-        expect: true
-    }
-
-    /**
-     * 借贷归还明细
-     */
-    def "returnInfo"() {
-        def request = new TradeLoanReturnInfoRequest()
-        request.openid = mobile
-        request.tradeLoanSn = "JD00000174"
-        def response = apiVcbService.returnInfo(request)
         println JSON.toJSONString(response)
         expect: true
     }
@@ -231,5 +244,16 @@ class ApiVcbServiceTest extends Specification {
     public static void main(String[] args) {
         String s = "[{\"type\":4,\"number\":\"291117124@qq.com\",\"name\":\"孟晗\",\"url\":\"http://vcb.oss-cn-hongkong.aliyuncs.com/pay/230f5b22699d6cedbcff3d5b2ed92895%21small?OSSAccessKeyId=LTAIMoSidU9xd2Nv&Signature=OHa2idYC1VcZ7zQg8fMOzIcdR84%3D&Expires=1545995402\",\"bank\":null,\"bankName\":null},{\"type\":2,\"number\":\"hb965420mh\",\"name\":\"孟晗\",\"url\":\"http://vcb.oss-cn-hongkong.aliyuncs.com/pay/87a5219c85167c3396f1cde13b7db198%21small?OSSAccessKeyId=LTAIMoSidU9xd2Nv&Signature=W5Rl8sxJYvM%2BuK3ePhvCbOW7N%2B8%3D&Expires=1545995402\",\"bank\":null,\"bankName\":null},{\"type\":3,\"number\":\"2525225252\",\"name\":\"孟晗\",\"url\":null,\"bank\":\"招商银行\",\"bankName\":\"北京大屯路招商银行\"}]"
         println s.length()
+    }
+
+    def "assetTransfer2"() {
+        int[] test = [1,2,1]
+        def var = test[0]
+        for (int i = 1; i < test.length; i++) {
+            var^=test[i]
+        }
+        println var
+        println 1^2
+        expect: true
     }
 }
