@@ -19,9 +19,32 @@ class ApiVcbServiceTest extends Specification {
      */
     def "assetDetail"() {
         def request = new AssetDetailRequest()
-        request.mobile = "17316227689"
+        request.mobile = mobile
         request.type = "loan"
         apiVcbService.assetDetail(request)
+        expect: true
+    }
+
+    /**
+     * 借贷申请初始化
+     */
+    def "loanApplyInit"() {
+        def request = new LoanApplyInitRequest()
+        request.openid = mobile
+        def response = apiVcbService.loanApplyInit(request)
+        println JSON.toJSONString(response)
+        expect: true
+    }
+
+    /**
+     * 质押借贷比例
+     */
+    def "loanRate"() {
+        def request = new LoanApplyInitRequest()
+        request.openid = "17316227689"
+        request.varietyCode = "btc"
+        def response = apiVcbService.loanRate(request)
+        println JSON.toJSONString(response)
         expect: true
     }
 
@@ -38,8 +61,18 @@ class ApiVcbServiceTest extends Specification {
         def response = apiVcbService.assetTransfer(request)
         expect: true
     }
+/*********************杠杆交易****************************/
+    /**
+     * 交易对列表
+     */
+    def "tradeRecord"() {
+        def request = new TradeRecordRequest()
+        request.openid = mobile
+        def response = apiVcbService.tradeRecord(request)
+        println JSON.toJSONString(response)
+        expect: true
+    }
 
-    /*********************杠杆交易****************************/
     /**
      * 交易对列表
      */

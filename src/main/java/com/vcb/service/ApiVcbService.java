@@ -29,10 +29,13 @@ import com.vcb.domain.request.TradeLoanListRequest;
 import com.vcb.domain.request.TradeLoanRequest;
 import com.vcb.domain.request.TradeLoanReturnInfoRequest;
 import com.vcb.domain.request.TradeLoanReturnRequest;
+import com.vcb.domain.request.TradeRecordRequest;
 import com.vcb.domain.response.EntrustInfoResponse;
 import com.vcb.domain.response.EntrustResponse;
 import com.vcb.domain.response.ExchangeSymbol;
+import com.vcb.domain.response.LoanApplyInitResponse;
 import com.vcb.domain.response.LoanInterestResponse;
+import com.vcb.domain.response.PledgeRateResponse;
 import com.vcb.domain.response.SymbolInfoResponse;
 import com.vcb.domain.response.TradeEntrustInitResponse;
 import com.vcb.domain.response.TradeEntrustInitResponse.EntrustInfo;
@@ -40,6 +43,7 @@ import com.vcb.domain.response.TradeLoanInfo;
 import com.vcb.domain.response.TradeLoanInitResponse;
 import com.vcb.domain.response.TradeLoanInterestResponse;
 import com.vcb.domain.response.TradeLoanReturnInitResponse;
+import com.vcb.domain.response.TradeRecordResponse;
 import com.vcb.exception.ApiVcbException;
 import com.vcb.exception.InvalidParameterException;
 import com.vcb.utils.ApiIdentityUtil;
@@ -132,6 +136,28 @@ public class ApiVcbService {
     }
 
     /**
+     * 借贷申请初始化
+     */
+    public List<LoanApplyInitResponse> loanApplyInit(LoanApplyInitRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/loan/apply/init";
+        log.info("loanInit,request={}", request);
+        return callForList(uri, params, LoanApplyInitResponse.class);
+    }
+
+    /**
+     * 质押借贷比例
+     */
+    public PledgeRateResponse loanRate(LoanApplyInitRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/loan/rate";
+        log.info("loanRate,request={}", request);
+        return call(uri, params, PledgeRateResponse.class);
+    }
+
+    /**
      * 资金划转
      *
      */
@@ -144,6 +170,17 @@ public class ApiVcbService {
     }
 
     /****************************杠杆交易相关***************************************/
+
+    /**
+     * 交易对资金记录
+     */
+    public QueryResponse<TradeRecordResponse> tradeRecord(TradeRecordRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/trade/record";
+        log.info("tradeRecord,request={}");
+        return call(uri, params, new TypeReference<QueryResponse<TradeRecordResponse>>(){});
+    }
 
     /**
      * 交易对列表
