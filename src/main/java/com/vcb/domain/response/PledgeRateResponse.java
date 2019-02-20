@@ -3,7 +3,6 @@ package com.vcb.domain.response;
 import java.math.BigDecimal;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 /**
  * Created by fangxm on 19-1-19.
@@ -20,4 +19,9 @@ public class PledgeRateResponse {
      * 质押借贷比例
      */
     private BigDecimal pledgeMaxRate;
+
+    /**
+     * 抵押借款最小现金金额
+     */
+    private BigDecimal pledgeMinCurrency;
 }

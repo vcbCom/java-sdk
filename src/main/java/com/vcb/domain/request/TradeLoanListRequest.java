@@ -17,9 +17,9 @@ import org.hibernate.validator.constraints.Range;
 public class TradeLoanListRequest extends QueryBaseRequest {
 
     /**
-     * 归还状态0全部 1未归还 2部分归还 3已归还
+     * 归还状态0全部 1待归还 (未归还,部分归还) 2已归还
      */
-    @Range(payload = VcbPayload.InvalidParameter.class, min = 0, max = 3, message = "must be range between 0 and 3")
+    @Range(payload = VcbPayload.InvalidParameter.class, min = 0, max = 2, message = "must be range between 0 and 2")
     private Integer returnStatus = 0;
 
     /**

@@ -31,6 +31,7 @@ class ApiVcbServiceTest extends Specification {
     def "loanApplyInit"() {
         def request = new LoanApplyInitRequest()
         request.openid = mobile
+        request.varietyCode = "btc"
         def response = apiVcbService.loanApplyInit(request)
         println JSON.toJSONString(response)
         expect: true
@@ -61,6 +62,19 @@ class ApiVcbServiceTest extends Specification {
         def response = apiVcbService.assetTransfer(request)
         expect: true
     }
+
+    /**
+     * 资金记录
+     */
+    def "assetRecord"() {
+        def request = new AssetRecordRequest()
+        request.openid = mobile
+        request.type = 1
+        request.varietyCode="btc"
+        def response = apiVcbService.assetRecord(request)
+        expect: true
+    }
+
 /*********************杠杆交易****************************/
     /**
      * 交易对列表
@@ -155,6 +169,7 @@ class ApiVcbServiceTest extends Specification {
     def "loanList"() {
         def request = new TradeLoanListRequest()
         request.openid = mobile
+        request.returnStatus=1
         def response = apiVcbService.loanList(request)
         println JSON.toJSONString(response)
         expect: true

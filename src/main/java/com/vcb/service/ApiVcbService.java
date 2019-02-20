@@ -19,6 +19,7 @@ import com.vcb.domain.QueryResponse;
 import com.vcb.domain.Ticker;
 import com.vcb.domain.request.AccountTransferRequest;
 import com.vcb.domain.request.AssetDetailRequest;
+import com.vcb.domain.request.AssetRecordRequest;
 import com.vcb.domain.request.EntrustInfoRequest;
 import com.vcb.domain.request.EntrustListRequest;
 import com.vcb.domain.request.EntrustRequest;
@@ -30,6 +31,7 @@ import com.vcb.domain.request.TradeLoanRequest;
 import com.vcb.domain.request.TradeLoanReturnInfoRequest;
 import com.vcb.domain.request.TradeLoanReturnRequest;
 import com.vcb.domain.request.TradeRecordRequest;
+import com.vcb.domain.response.BaseRecordResponse;
 import com.vcb.domain.response.EntrustInfoResponse;
 import com.vcb.domain.response.EntrustResponse;
 import com.vcb.domain.response.ExchangeSymbol;
@@ -169,6 +171,17 @@ public class ApiVcbService {
         baseCall(uri, params);
     }
 
+    /**
+     * 资金记录
+     */
+    public QueryResponse<BaseRecordResponse> assetRecord(AssetRecordRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/asset/record";
+        log.info("assetRecord,request={}");
+        return call(uri, params, new TypeReference<QueryResponse<BaseRecordResponse>>(){});
+    }
+
     /****************************杠杆交易相关***************************************/
 
     /**
@@ -177,7 +190,7 @@ public class ApiVcbService {
     public QueryResponse<TradeRecordResponse> tradeRecord(TradeRecordRequest request) {
         ValidatorHelper.validator(request);
         Map<String, String> params = ApiIdentityUtil.toMap(request);
-        String uri = "/v1/api/kushen/trade/record";
+        String uri = "/v1/api/kushen/asset/trade/record";
         log.info("tradeRecord,request={}");
         return call(uri, params, new TypeReference<QueryResponse<TradeRecordResponse>>(){});
     }
