@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class BaseRequest {
+public class KushenBaseRequest {
     /**
      * openid
      */

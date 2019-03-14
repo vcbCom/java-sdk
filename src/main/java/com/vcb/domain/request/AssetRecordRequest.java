@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Range;
  */
 @Getter
 @Setter
-public class AssetRecordRequest extends QueryBaseRequest{
+public class AssetRecordRequest extends KushenQueryBaseRequest {
 
     /**
      * 账户类型 1 基本账户 2 质押借款账户 3 理财账户

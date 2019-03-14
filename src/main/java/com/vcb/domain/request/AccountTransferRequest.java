@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AccountTransferRequest extends BaseRequest {
+public class AccountTransferRequest extends KushenBaseRequest {
     @NotNull(payload = VcbPayload.MissingParameter.class, message = "mobile")
     private String mobile;
     @NotNull(payload = VcbPayload.MissingParameter.class, message = "varietyCode")

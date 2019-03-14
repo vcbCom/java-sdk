@@ -20,11 +20,18 @@ import com.vcb.domain.Ticker;
 import com.vcb.domain.request.AccountTransferRequest;
 import com.vcb.domain.request.AssetDetailRequest;
 import com.vcb.domain.request.AssetRecordRequest;
+import com.vcb.domain.request.CurrentFinancingBuyRequest;
+import com.vcb.domain.request.CurrentFinancingDeatilRequest;
+import com.vcb.domain.request.CurrentFinancingRecordRequest;
+import com.vcb.domain.request.CurrentFinancingSellRequest;
 import com.vcb.domain.request.EntrustInfoRequest;
 import com.vcb.domain.request.EntrustListRequest;
 import com.vcb.domain.request.EntrustRequest;
+import com.vcb.domain.request.FinancingSnRequest;
 import com.vcb.domain.request.LoanApplyInitRequest;
+import com.vcb.domain.request.LoanApplyRequest;
 import com.vcb.domain.request.RealtimeJsonRequest;
+import com.vcb.domain.request.SearchCurrentFinancingRequest;
 import com.vcb.domain.request.SymbolRequest;
 import com.vcb.domain.request.TradeLoanListRequest;
 import com.vcb.domain.request.TradeLoanRequest;
@@ -32,12 +39,19 @@ import com.vcb.domain.request.TradeLoanReturnInfoRequest;
 import com.vcb.domain.request.TradeLoanReturnRequest;
 import com.vcb.domain.request.TradeRecordRequest;
 import com.vcb.domain.response.BaseRecordResponse;
+import com.vcb.domain.response.CurrentFinancingDetailResponse;
+import com.vcb.domain.response.CurrentFinancingMyListInitResponse;
+import com.vcb.domain.response.CurrentFinancingRecordResponse;
 import com.vcb.domain.response.EntrustInfoResponse;
 import com.vcb.domain.response.EntrustResponse;
 import com.vcb.domain.response.ExchangeSymbol;
+import com.vcb.domain.response.FinancingInitResponse;
 import com.vcb.domain.response.LoanApplyInitResponse;
 import com.vcb.domain.response.LoanInterestResponse;
 import com.vcb.domain.response.PledgeRateResponse;
+import com.vcb.domain.response.SearchCurrentFinancingResponse;
+import com.vcb.domain.response.SearchMyCurrentFinancingResponse;
+import com.vcb.domain.response.SearchMyCurrentFinancingResponse.CurrentFinancingDetail;
 import com.vcb.domain.response.SymbolInfoResponse;
 import com.vcb.domain.response.TradeEntrustInitResponse;
 import com.vcb.domain.response.TradeEntrustInitResponse.EntrustInfo;
@@ -149,6 +163,26 @@ public class ApiVcbService {
     }
 
     /**
+     * 借贷申请
+     */
+    public void loanApply(LoanApplyRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/loan/apply";
+        log.info("loanInit,request={}", request);
+        baseCall(uri, params);
+    }
+
+    /**
+     * 允许借贷的列表
+     */
+    public void loanVariety() {
+        Map<String, String> params = new HashMap<>(5);
+        String uri = "/v1/api/kushen/loan/variety/list";
+        baseCall(uri, params);
+    }
+
+    /**
      * 质押借贷比例
      */
     public PledgeRateResponse loanRate(LoanApplyInitRequest request) {
@@ -157,6 +191,17 @@ public class ApiVcbService {
         String uri = "/v1/api/kushen/loan/rate";
         log.info("loanRate,request={}", request);
         return call(uri, params, PledgeRateResponse.class);
+    }
+
+    /**
+     * 理财购买初始化
+     */
+    public FinancingInitResponse buyInit(FinancingSnRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/financing/buy/init";
+        log.info("loanRate,request={}", request);
+        return call(uri, params, FinancingInitResponse.class);
     }
 
     /**
@@ -180,6 +225,84 @@ public class ApiVcbService {
         String uri = "/v1/api/kushen/asset/record";
         log.info("assetRecord,request={}");
         return call(uri, params, new TypeReference<QueryResponse<BaseRecordResponse>>(){});
+    }
+    /****************************活期理财相关***************************************/
+    /**
+     * 产品列表
+     */
+    public QueryResponse<SearchCurrentFinancingResponse> financingList(SearchCurrentFinancingRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/current/list";
+        log.info("financingList,request={}");
+        return call(uri, params, new TypeReference<QueryResponse<SearchCurrentFinancingResponse>>(){});
+    }
+
+    /**
+     * 产品详情
+     */
+    public CurrentFinancingDetailResponse detail(CurrentFinancingDeatilRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/current/detail";
+        log.info("detail,request={}", request);
+        return call(uri, params, CurrentFinancingDetailResponse.class);
+    }
+
+    /**
+     * 已购产品列表
+     */
+    public SearchMyCurrentFinancingResponse myFinancingList(SearchCurrentFinancingRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/current/list/my";
+        log.info("myFinancingList,request={}");
+        return call(uri, params, new TypeReference<SearchMyCurrentFinancingResponse<CurrentFinancingDetail>>(){});
+    }
+
+    /**
+     * 已购记录查询框初始化数据
+     */
+    public List<CurrentFinancingMyListInitResponse> init(LoanApplyInitRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/current/init";
+        log.info("init,request={}", request);
+        return callForList(uri, params, CurrentFinancingMyListInitResponse.class);
+    }
+
+    /**
+     * 购买记录
+     */
+    public QueryResponse<CurrentFinancingRecordResponse> financingrecordList(CurrentFinancingRecordRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/current/record/list";
+        log.info("financingList,request={}");
+        return call(uri, params, new TypeReference<QueryResponse<CurrentFinancingRecordResponse>>(){});
+    }
+
+    /**
+     * 投资
+     *
+     */
+    public JsonResult buy(CurrentFinancingBuyRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/current/buy";
+        log.info("buy,request={}", request);
+        return baseCall(uri, params);
+    }
+
+    /**
+     * 赎出
+     */
+    public JsonResult sell(CurrentFinancingSellRequest request) {
+        ValidatorHelper.validator(request);
+        Map<String, String> params = ApiIdentityUtil.toMap(request);
+        String uri = "/v1/api/kushen/current/sell";
+        log.info("sell,request={}", request);
+        return baseCall(uri, params);
     }
 
     /****************************杠杆交易相关***************************************/

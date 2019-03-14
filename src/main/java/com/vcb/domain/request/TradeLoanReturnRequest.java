@@ -14,7 +14,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class TradeLoanReturnRequest extends BaseRequest{
+public class TradeLoanReturnRequest extends KushenBaseRequest {
 
     /**
      *借币流水号

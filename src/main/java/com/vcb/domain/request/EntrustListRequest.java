@@ -12,7 +12,7 @@ import org.hibernate.validator.constraints.Range;
 @Getter
 @Setter
 @ToString
-public class EntrustListRequest extends QueryBaseRequest{
+public class EntrustListRequest extends KushenQueryBaseRequest {
 
     /**
      * 列表类型: 1 当前 2 历史

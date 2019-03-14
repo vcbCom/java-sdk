@@ -10,6 +10,6 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class AccountDetailRequest extends BaseRequest {
+public class AccountDetailRequest extends KushenBaseRequest {
     private String type;
 }

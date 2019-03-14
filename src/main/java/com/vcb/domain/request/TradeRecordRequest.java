@@ -10,12 +10,19 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class TradeRecordRequest extends QueryBaseRequest{
+public class TradeRecordRequest extends KushenQueryBaseRequest {
 
     /**
      * 品种
      */
     private String varietyCode;
+
+    /**
+     * 交易所
+     */
+    private String exchangeCode;
+
+    private String symbol;
 
     private Date startTime;
 

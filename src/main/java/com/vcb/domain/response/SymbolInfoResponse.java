@@ -1,5 +1,7 @@
 package com.vcb.domain.response;
 
+import java.math.BigDecimal;
+
 import com.vcb.domain.Ticker;
 import lombok.Getter;
 import lombok.Setter;
@@ -76,6 +78,15 @@ public class SymbolInfoResponse {
          */
         private String freezeWithVariety;
 
+        /**
+         * 风险率
+         */
+        private BigDecimal riskRate;
+
+        /*
+         * 爆仓价
+         */
+        private BigDecimal forcePrice;
     }
 }
 

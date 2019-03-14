@@ -8,7 +8,6 @@ import com.vcb.domain.VcbPayload;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Created by fangxm on 19-1-17.
@@ -16,13 +15,13 @@ import org.hibernate.validator.constraints.NotBlank;
 @Getter
 @Setter
 @ToString
-public class LoanApplyRequest extends BaseRequest {
+public class LoanApplyRequest extends KushenBaseRequest {
 
-    @NotBlank(payload = VcbPayload.MissingParameter.class,message="depositVarietyCode")
+    @NotNull(payload = VcbPayload.MissingParameter.class,message="depositVarietyCode")
     private String depositVarietyCode;
-    @NotBlank(payload = VcbPayload.MissingParameter.class,message="depositAmount")
+    @NotNull(payload = VcbPayload.MissingParameter.class,message="depositAmount")
     private BigDecimal depositAmount;
-    @NotBlank(payload = VcbPayload.MissingParameter.class,message="loanAmount")
+    @NotNull(payload = VcbPayload.MissingParameter.class,message="loanAmount")
     private BigDecimal loanAmount;
     @NotNull(payload = VcbPayload.MissingParameter.class, message = "mobile")
     private String mobile;

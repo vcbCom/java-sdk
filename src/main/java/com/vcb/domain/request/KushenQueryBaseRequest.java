@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class QueryBaseRequest extends BaseRequest{
+public class KushenQueryBaseRequest extends KushenBaseRequest {
     private int pageNum = 1;
     private int pageSize = 10;
 }

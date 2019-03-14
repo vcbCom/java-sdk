@@ -15,7 +15,7 @@ import org.hibernate.validator.constraints.Range;
 @Getter
 @Setter
 @ToString
-public class EntrustRequest extends BaseRequest{
+public class EntrustRequest extends KushenBaseRequest {
 
     /**
      * 交易对

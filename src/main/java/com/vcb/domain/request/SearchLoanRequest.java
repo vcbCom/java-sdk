@@ -10,7 +10,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SearchLoanRequest extends BaseRequest {
+public class SearchLoanRequest extends KushenBaseRequest {
     private String depositVarietyCode;
     private Integer depositVarietyId;
     private String mobile;

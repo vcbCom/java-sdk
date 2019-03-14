@@ -1,5 +1,8 @@
 package com.vcb.domain.response;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 import com.vcb.domain.Depth;
 import com.vcb.domain.QueryResponse;
 import com.vcb.domain.SymbolConfig;
@@ -54,6 +57,11 @@ public class TradeEntrustInitResponse {
      * 折合人民币价格
      */
     private String cnyPrice;
+
+    /**
+     * usdt折合人民币比率
+     */
+    private BigDecimal financeRate;
 
     /**
      * 委托订单信息
@@ -131,5 +139,15 @@ public class TradeEntrustInitResponse {
          * 提交状态 1等待提交 2已提交 3等待撤销 4已提交撤销
          */
         private Integer submitStatus;
+
+        /**
+         * 强制类型：1非强制 2强制
+         */
+        private Integer forceType;
+
+        /**
+         * 委托时间
+         */
+        private Date createTime;
     }
 }

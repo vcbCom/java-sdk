@@ -8,7 +8,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class LoanApplyInitRequest extends BaseRequest {
+public class LoanApplyInitRequest extends KushenBaseRequest {
     private String varietyCode;
 
 }

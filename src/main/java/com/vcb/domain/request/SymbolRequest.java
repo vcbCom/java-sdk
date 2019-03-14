@@ -13,7 +13,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class SymbolRequest extends BaseRequest{
+public class SymbolRequest extends KushenBaseRequest {
 
     /**
      * 交易对

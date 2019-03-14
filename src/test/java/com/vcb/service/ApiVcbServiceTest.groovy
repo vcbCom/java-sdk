@@ -2,6 +2,7 @@ package com.vcb.service
 
 import com.alibaba.fastjson.JSON
 import com.vcb.domain.request.*
+import org.apache.commons.lang3.StringUtils
 import spock.lang.Specification
 
 class ApiVcbServiceTest extends Specification {
@@ -19,8 +20,8 @@ class ApiVcbServiceTest extends Specification {
      */
     def "assetDetail"() {
         def request = new AssetDetailRequest()
-        request.mobile = mobile
-        request.type = "loan"
+        request.openid = mobile
+//        request.type = "loan"
         apiVcbService.assetDetail(request)
         expect: true
     }
@@ -33,6 +34,21 @@ class ApiVcbServiceTest extends Specification {
         request.openid = mobile
         request.varietyCode = "btc"
         def response = apiVcbService.loanApplyInit(request)
+        println JSON.toJSONString(response)
+        expect: true
+    }
+
+    /**
+     * 借贷申请初始化
+     */
+    def "loanApply"() {
+        def request = new LoanApplyRequest()
+        request.openid = mobile
+        request.depositVarietyCode = "btc"
+        request.depositAmount=0.1
+        request.loanAmount=100
+        request.mobile= mobile
+        def response = apiVcbService.loanApply(request)
         println JSON.toJSONString(response)
         expect: true
     }
@@ -68,22 +84,113 @@ class ApiVcbServiceTest extends Specification {
      */
     def "assetRecord"() {
         def request = new AssetRecordRequest()
+        request.openid = "CDR20MDAwMDAwMDAwMTA1MzU2E52A820"
+        request.type = 2
+        apiVcbService.assetRecord(request)
+        expect: true
+    }
+
+    /**
+     * 允许借贷的列表
+     */
+    def "loanVariety"() {
+        def response = apiVcbService.loanVariety()
+        expect: true
+    }
+
+    /**
+     * 理财购买初始化
+     */
+    def "buyInit"() {
+        def request = new FinancingSnRequest()
         request.openid = mobile
-        request.type = 1
-        request.varietyCode="btc"
-        def response = apiVcbService.assetRecord(request)
+        request.financingSn="LC00000"
+        apiVcbService.buyInit(request)
+        expect: true
+    }
+/*********************活期理财交易****************************/
+    /**
+     * 产品列表
+     */
+    def "financingList"() {
+        def request = new SearchCurrentFinancingRequest()
+        request.openid = mobile
+        apiVcbService.financingList(request)
+        expect: true
+    }
+
+    /**
+     * 产品详情
+     */
+    def "detail"() {
+        def request = new CurrentFinancingDeatilRequest()
+        request.openid = mobile
+        request.currentFinancingSn = "CF00000004"
+        apiVcbService.detail(request)
+        expect: true
+    }
+
+    /**
+     * 已购产品列表
+     */
+    def "myFinancingList"() {
+        def request = new SearchCurrentFinancingRequest()
+        request.openid = mobile
+        apiVcbService.myFinancingList(request)
+        expect: true
+    }
+
+    /**
+     * init
+     */
+    def "init"() {
+        def request = new LoanApplyInitRequest()
+        request.openid = mobile
+        apiVcbService.init(request)
+        expect: true
+    }
+    /**
+     * 已购产品列表
+     */
+    def "financingRecordList"() {
+        def request = new CurrentFinancingRecordRequest()
+        request.openid = mobile
+        request.startTime = new Date().toLocaleString()
+//        request.endTime = new Date().toLocaleString()
+        apiVcbService.financingrecordList(request)
+        expect: true
+    }
+    /**
+     * 投资
+     */
+    def "buy"() {
+        def request = new CurrentFinancingBuyRequest()
+        request.openid = mobile
+        request.amount = BigDecimal.TEN
+        request.currentFinancingSn = "CF00000013"
+        apiVcbService.buy(request)
+        expect: true
+    }
+    /**
+     * 赎出
+     */
+    def "sell"() {
+        def request = new CurrentFinancingSellRequest()
+        request.openid = BigDecimal.ONE
+        request.currentFinancingSn = "CF00000010"
+        apiVcbService.sell(request)
         expect: true
     }
 
 /*********************杠杆交易****************************/
     /**
-     * 交易对列表
+     * 交易对资金记录
      */
     def "tradeRecord"() {
         def request = new TradeRecordRequest()
-        request.openid = mobile
-        def response = apiVcbService.tradeRecord(request)
-        println JSON.toJSONString(response)
+        request.openid = "CDR20MDAwMDAwMDAwMTA1MTAy30D00AE"
+//        request.symbol = "btcusdt"
+        apiVcbService.tradeRecord(request)
         expect: true
     }
 
@@ -101,10 +208,10 @@ class ApiVcbServiceTest extends Specification {
      */
     def "symbolInfo"() {
         def request = new SymbolRequest()
-        request.mobile = mobile
+        request.openid = mobile
         request.symbol = "btcusdt"
         request.exchangeCode = "huobi"
-        apiVcbService.symbolInfo(request)
+        def response = apiVcbService.symbolInfo(request)
         println JSON.toJSONString(response)
         expect: true
     }
@@ -168,10 +275,11 @@ class ApiVcbServiceTest extends Specification {
      */
     def "loanList"() {
         def request = new TradeLoanListRequest()
-        request.openid = mobile
-        request.returnStatus=1
-        def response = apiVcbService.loanList(request)
-        println JSON.toJSONString(response)
+        request.openid = "CDR20MDAwMDAwMDAwMTA1MTAy30D00AE"
+//        request.symbol="btcusdt"
+        request.exchangeCode="huobi"
+//        request.returnStatus=4
+        apiVcbService.loanList(request)
         expect: true
     }
 
@@ -181,10 +289,9 @@ class ApiVcbServiceTest extends Specification {
      */
     def "returnInit"() {
         def request = new TradeLoanReturnInfoRequest()
-        request.openid = mobile
-        request.tradeLoanSn = "JD00000174"
-        def response = apiVcbService.returnInit(request)
-        println JSON.toJSONString(response)
+        request.openid = "CDR20MDAwMDAwMDAwMTA1MzY08DD9258"
+        request.tradeLoanSn = "JD0000026"
+        apiVcbService.returnInit(request)
         expect: true
     }
 
@@ -206,11 +313,12 @@ class ApiVcbServiceTest extends Specification {
      */
     def "entrustInit"() {
         def request = new SymbolRequest()
-        request.openid = mobile
+        request.openid = "13011114585"
         request.exchangeCode = "huobi"
         request.symbol = "btcusdt"
         def response = apiVcbService.entrustInit(request)
         println JSON.toJSONString(response)
+        StringUtils.trimToEmpty()
         expect: true
     }
 
@@ -247,9 +355,8 @@ class ApiVcbServiceTest extends Specification {
      */
     def "entrustList"() {
         def request = new EntrustListRequest()
-        request.openid = mobile
-        def response = apiVcbService.entrustList(request)
-        println JSON.toJSONString(response)
+        request.openid = "CDR20MDAwMDAwMDAwMTEyMDAyBAD18F8"
+        apiVcbService.entrustList(request)
         expect: true
     }
 
@@ -302,6 +409,12 @@ class ApiVcbServiceTest extends Specification {
         }
         println var
         println 1^2
+
+        long workerMask= -1L ^ (-1L << 5);
+        println Long.toBinaryString(workerMask)
+        println Long.toBinaryString(-1)
+        def decimal = new BigDecimal("0.365")
+        println decimal
         expect: true
     }
 }
